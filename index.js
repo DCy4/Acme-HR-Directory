@@ -52,5 +52,38 @@ app.listen(port, () => console.log(`listening on port ${port}`))};
 app.use((err, req, res, next) =>{
   res.status(500).send(err.message);
 })
+
+app.get('/api/departments', async (req, res, next) => {
+  try {
+    let SQL = /*SQL*/ `SELECT * FROM departments`;
+    const response = await client.query(SQL);
+    res.send(response.rows);
+  } catch (error) {
+      next(error)
+  }
+})
+
+app.get('/api/employees', async (req, res, next) => {
+  try {
+    let SQL = /*SQL*/ `SELECT * FROM employees`;
+    const response = await client.query(SQL);
+    res.send(response.rows);
+  } catch (error) {
+      next(error)
+  }
+})
+
+app.post('/api/employees', async(req, res, next) => {
+  try {
+    let SQL = /*SQL*/`INSERT INTO employees(name, department_id) VALUES($1, $2) RETURNING *`;
+    console.log('req.body = ', req.body);
+    const response = await client.query(SQL, [req.body.name, req.body.department_id]);
+    res.send(response.rows[0]);
+  } catch (error) {
+      next(error)
+  }
+
+})
+
 //invoke init
 init();
