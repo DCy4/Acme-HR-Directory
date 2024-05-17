@@ -38,9 +38,9 @@ let SQL = /*SQL*/ `
   INSERT INTO departments(name) Values('Operations');
   INSERT INTO departments(name) Values('HR');
   INSERT INTO departments(name) Values('Engineering');
-  INSERT INTO names(name, department_id) VALUES('David', (SELECT id FROM departments WHERE name = 'Operations'));
-  INSERT INTO names(name, department_id) VALUES('Lee', (SELECT id FROM departments WHERE name = 'Engineering'));
-  INSERT INTO names(name, department_id) VALUES('Robin', (SELECT id FROM departments WHERE name = 'HR'));
+  INSERT INTO employees(name, department_id) VALUES('David', (SELECT id FROM departments WHERE name = 'Operations'));
+  INSERT INTO employees(name, department_id) VALUES('Lee', (SELECT id FROM departments WHERE name = 'Engineering'));
+  INSERT INTO employees(name, department_id) VALUES('Robin', (SELECT id FROM departments WHERE name = 'HR'));
 `
 //connect to pg client using await
 await client.query(SQL);
